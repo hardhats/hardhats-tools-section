@@ -1,0 +1,483 @@
+ 7:25 AM  14-NOV-02
+VPE Patch 1
+%ZVEMGI1
+%ZVEMGI1 ;DJB,VGL**Reverse Video,Set variables,Error ; 11/14/02 7:10am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+GLOBNAME(GLOB) ;Write Global name with variable subscripts in reverse video.
+ I GLOB'?.E1"(".E Q GLOB
+ NEW FLAGT,FLAGT1,NAME
+ D SUBSET(GLOB) S NAME=GL_"("
+ ;Next: FLAGT set to stop printing reverse video after a Xref.
+ S FLAGT=0 F I=1:1:$L(SUBCHK,ZDELIM) S FLAGT1=0 D
+ . I SUBNUM="Y",I#2=0 D SET
+ . I SUBNUM="N",I#2 D SET
+ . S NAME=NAME_$P(SUBCHK,ZDELIM,I) I FLAGT1 S NAME=NAME_$C(127)
+ . S NAME=NAME_$S(I=$L(SUBCHK,ZDELIM):")",1:",")
+ Q NAME
+SET ;
+ S:+$P(SUBCHK,ZDELIM,I)=0 FLAGT=1
+ I 'FLAGT S NAME=NAME_$C(127) S FLAGT1=1
+ Q
+SUBSET(GLOB) ;Set up variables GL,GLNAM,GLSUB,SUBCHK,SUBNUM.
+ ;SUBNUM="Y" if Global root is numeric [Ex ^VA(200 ].
+ ;SUBNUM="N" if Global root is NOT numeric [Ex ^DPT( ].
+ NEW PIECE1,TEMP,X,Y
+ Q:$G(GLOB)=""  S GLNAM=GLOB
+ S GL=$P(GLNAM,"("),GLSUB=$P($E(GLOB,1,$L(GLOB)-1),"(",2,99)
+ S SUBCHK=$$ZDELIM^%ZVEMGU(GLOB) ;replace commas with ZDELIM
+ ;Next determine if file has a numeric root.
+ S SUBNUM="NOFM" I GL="^DIA" Q
+ S PIECE1=$P(SUBCHK,ZDELIM,1)
+ S TEMP=GL_"("_PIECE1_",0)" I $D(@TEMP)#2 D
+ . S X=$P(@TEMP,U) Q:X']""  I '$D(^DIC("B",X)) D  Q:'$D(^DIC("B",X))
+ . . ;Allow for subscripts which are longer than 30 characters
+ . . Q:$L(X)<31
+ . . F  S X=$E(X,1,$L(X)-1) Q:$L(X)<31!($D(^DIC("B",X)))
+ . I GL'="^DIC" S SUBNUM="Y" Q
+ . S Y=$O(^DIC("B",X,0)) I Y'>0 S SUBNUM="DIC" Q  ;Invalid ^DIC node
+ . I $G(^DIC(Y,0,"GL"))=(GL_"("_PIECE1_",") S SUBNUM="Y" Q
+ . S SUBNUM="DIC"
+ . Q
+ Q:SUBNUM'="NOFM"
+ S TEMP=GL_"(0)" I $D(@TEMP)#2 D
+ . S X=$P(@TEMP,U) Q:X']""  I $D(^DIC("B",X)) S SUBNUM="N" Q
+ . D  S:$D(^DIC("B",X)) SUBNUM="N"
+ . . Q:$L(X)<31
+ . . F  S X=$E(X,1,$L(X)-1) Q:$L(X)<31!($D(^DIC("B",X)))
+ Q
+REVERSE(TXT) ;Display subscript in reverse video
+ ;TXT=Text to be displayed
+ W ! I TXT'[$C(127) W TXT Q
+ NEW DX,DY,D,L,PC,VEEY
+ S VEEY=(VEE("IOSL")-1)
+ S D=$C(127),L=$L(TXT,D)
+ F PC=1:1:L D  ;
+ . I (PC#2) W $P(TXT,D,PC) D  Q
+ . . Q:PC'<L
+ . . S DX=$X,DY=$S($Y>VEEY:VEEY,1:$Y)
+ . . W @VEE("RON") X VEES("XY") W " "
+ . W $P(TXT,D,PC)_" "
+ . S DX=$X,DY=$S($Y>VEEY:VEEY,1:$Y) W @VEE("ROFF") X VEES("XY") Q
+ Q
+ ;====================================================================
+ERROR ;Error trap.
+ ;VEET("STATUS") - Don't display "No data" with <PROT> errors.
+ NEW ZE
+ S @("ZE="_VEE("$ZE"))
+ I $G(VEET("STATUS"))["START" D ENDSCR^%ZVEMKT2 I 1
+ E  S $P(VEET("STATUS"),"^",5)="PROT" ;Suppress 'No Data' display
+ S FLAGQ=1
+ I ZE["PROT" D  D PAUSE^%ZVEMKU(1) Q
+ . W $C(7),!!?1,"Access denied (global protection)"
+ D ERRMSG^%ZVEMKU1("VGL/I"),PAUSE^%ZVEMKU(1)
+ Q
+
+%ZVEMKEA
+%ZVEMKEA ;DJB,KRN**Screen Mode Line Editor ; 11/14/02 6:56am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+SCREEN(PROMPT,LMAR,RMAR) ;Edit a line of text
+ ;PROMPT = Prompt
+ ;LMAR=Left Margin
+ ;RMAR=Right Margin
+ ;
+ NEW DX,DY,FLAGQ,I,START,WIDTH,X,XCHAR,XCUR,YCNT,YCUR
+ NEW:'$D(VEES) VEES
+ ;
+ S FLAGQ=0
+ D INIT Q:FLAGQ
+ X VEES("RM0")
+ W ! D LISTCD
+ D SETUP
+ F  D READ Q:X="QUIT"
+EX ;
+ ;Reposition cursor to bottom line
+ I YCUR<YCNT F I=1:1:(YCNT-YCUR) W !
+ X VEES("RM80")
+ Q
+ ;
+READ ;
+ S X=$$READ^%ZVEMKRN("",1),VEESHC=$G(VEE("K"))
+ I ",<ESC>,<F1E>,<F1Q>,<TO>,"[(","_VEESHC_",") S X="QUIT" Q
+ I ",<AU>,<AD>,<AR>,<AL>,"[(","_VEESHC_",") D ARROW^%ZVEMKEC Q
+ I ",<F1AL>,<F1AR>,<F2AL>,<F2AR>,"[(","_VEESHC_",") D OTHER^%ZVEMKEC Q
+ I ",<BS>,<DEL>,"[(","_VEESHC_",") D  D DELETE^%ZVEMKEB Q
+ . S:$G(VEE("BS"))="SAME" VEESHC="<BS>"
+ I VEESHC?1"<".E1">".E S X="QUIT" Q
+ D INSERT^%ZVEMKEB
+ Q
+ ;
+LISTCD ;Print Code with controlled wrapping.
+ NEW TEMP
+ S TEMP=CD
+ I TEMP?.E1C.E S TEMP=$$CC(TEMP) ;Control characters
+ W ?LMAR,PROMPT
+ W ?START,$E(TEMP,1,WIDTH)
+ S TEMP=$E(TEMP,WIDTH+1,999)
+LISTCD1 ;Print remainder of line
+ I TEMP="" Q
+ W !?START,$E(TEMP,1,WIDTH)
+ S TEMP=$E(TEMP,WIDTH+1,999)
+ G LISTCD1
+ ;
+SETUP ;Set up starting values.
+ F YCNT=1:1 Q:$L(CD)<(YCNT*WIDTH+1)
+ S XCHAR=$L(CD)+1
+ S XCUR=$X
+ S YCUR=YCNT
+ ;
+ ;If CD is exactly the screen width move the cursor to next line.
+ I $L(CD)>0,$L(CD)#WIDTH=0 D  ;
+ . S YCUR=YCUR+1
+ . S XCUR=START
+ . W ! Q:START'>0
+ . W $C(27)_"["_START_"C"
+ . D RESETY
+ Q
+ ;
+CC(TXT) ;Control characters
+ ;Substitute a 'c' for any control characters.
+ ;
+ NEW I
+ I $G(TXT)']"" Q ""
+ F I=1:1:$L(TXT) I $E(TXT,I)?.E1C.E D  ;
+ . S TXT=$E(TXT,1,I-1)_"c"_$E(TXT,I+1,9999)
+ Q TXT
+ ;
+RESETY ;Reset $Y
+ NEW VEEY
+ S VEEY=(VEE("IOSL")-1)
+ S DX=0,DY=$S($Y>VEEY:VEEY,1:$Y) X VEES("XY")
+ Q
+ ;
+INIT ;
+ I '$D(VEE("OS")) D OS^%ZVEMKY Q:FLAGQ
+ I '$D(VEE("IOM")) D IO^%ZVEMKY
+ D SCRNVAR^%ZVEMKY2
+ D CRSRMOVE^%ZVEMKY2
+ D CRSRSAVE^%ZVEMKY2
+ D BLANK^%ZVEMKY3
+ S CD=$G(CD),PROMPT=$G(PROMPT),LMAR=$G(LMAR),RMAR=$G(RMAR)
+ S:LMAR'>0!(LMAR>(VEE("IOM")-5)) LMAR=0
+ S:RMAR'>LMAR!(RMAR>VEE("IOM")) RMAR=VEE("IOM")-1
+ S START=LMAR+$L(PROMPT)
+ S WIDTH=RMAR-START
+ D RESETY
+ Q
+
+%ZVEMKEB
+%ZVEMKEB ;DJB,KRN**INSERT,DELETE,PRINT ; 11/14/02 7:16am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+INSERT ;Insert a character
+ NEW VEEY
+ S VEEY=(VEE("IOSL")-1)
+ I $L(CD)>244 D  S VEESHC="TOO LONG",X="QUIT" Q  ;Tell calling routine line is too long.
+ . I YCNT>YCUR W $C(27)_"["_(YCNT-YCUR)_"B" ;Move cursor to last line.
+ . S DX=0,DY=$S($Y>VEEY:VEEY,1:$Y) X VEES("XY")
+ . W $C(7),!!?3,"Line length may not exceed 245"
+ I $L(CD)>0,$L(CD)#WIDTH=0 D  ;Allow for scroll at bottom of screen.
+ . I YCNT>YCUR W $C(27)_"["_(YCNT-YCUR)_"B" ;Move cursor to last line.
+ . W !,$C(27)_"["_(YCNT-YCUR+1)_"A" ;Linefeed,move cursor back up.
+ . W $C(27)_"["_(XCUR+1)_"C" ;Move cursor right.
+ S CD=$S(XCHAR=1:X_CD,1:$E(CD,1,XCHAR-1)_X_$E(CD,XCHAR,999))
+ I XCHAR#WIDTH=0 S XCUR=START,YCUR=YCUR+1 D  I 1
+ . W ! I START>0 W $C(27)_"["_START_"C" ;Cursor right
+ E  S XCUR=XCUR+1
+ S XCHAR=XCHAR+1 D PRINTL
+ Q
+DELETE ;Delete character
+ ;---<DEL> key struck---
+ I VEESHC="<DEL>" D  Q
+ . S CD=$E(CD,1,XCHAR-1)_$E(CD,XCHAR+1,999) D PRINTL
+ ;---<BS> key struck---
+ Q:XCHAR=1  S XCHAR=XCHAR-1
+ I XCHAR=1 S XCUR=XCUR-1,CD=$E(CD,2,999) W @VEES("CL") D PRINTL Q
+ I XCHAR#WIDTH=0,YCUR>1 D  I 1
+ . S XCUR=WIDTH+START-1,YCUR=YCUR-1
+ . W @VEES("CU"),$C(27)_"["_(WIDTH-1)_"C"
+ E  S XCUR=XCUR-1 W @VEES("CL")
+ S CD=$E(CD,1,XCHAR-1)_$E(CD,XCHAR+1,999) D PRINTL
+ Q
+PRINTL ;Print Line
+ NEW TEMP,VEEY
+ S VEEY=(VEE("IOSL")-1)
+ S TEMP=$E(CD,XCHAR,999)
+ I TEMP?.E1C.E S TEMP=$$CC^%ZVEMKEA(TEMP) ;Control characters
+ S DX=XCUR,DY=$S($Y>VEEY:VEEY,1:$Y)
+ W @VEES("SC") ;Save cursor position
+ W @VEES("BLANK_C_EOS") ;Blank screen
+ X VEES("XY") ;Reset $X & $Y
+ F YCNT=1:1 Q:$L(CD)<(YCNT*WIDTH+1)
+ W $E(TEMP,1,WIDTH+START-XCUR)
+ S TEMP=$E(TEMP,(WIDTH+START+1)-XCUR,999)
+PRINTL1 ;Print remainder of line
+ I TEMP="" W @VEES("RC") Q
+ W !?START,$E(TEMP,1,WIDTH) S TEMP=$E(TEMP,WIDTH+1,999)
+ G PRINTL1
+
+%ZVEMKT2
+%ZVEMKT2 ;DJB,KRN**Txt Scroll-Other,Help ; 11/14/02 6:59am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+SCROLL(CRSRON) ;End scroll, do form feed, start scroll
+ D ENDSCR,STARTSCR($G(CRSRON))
+ Q
+STARTSCR(CRSRON) ;Start Scroll Region
+ ;CRSRON=If 1, leave on cursor
+ NEW I
+ X VEES("RM0")
+ I '$G(CRSRON) W @VEES("COFF")
+ D SCROLL^%ZVEMKY2(VEET("S1"),VEET("S2"))
+ W @VEE("IOF")
+ I VEE("OS")=9 D  ;DTM-Blank screen below scroll area
+ . S DX=0,DY=VEET("S2") X VEES("CRSR") W @VEES("BLANK_C_EOS")
+ S DX=0,DY=VEET("S2")
+ F I=1:1:VEET("FT") X VEES("CRSR") W VEET("FT",I) S DY=DY+1
+ S DX=0,DY=VEET("S1")-VEET("HD")-1
+ F I=1:1:VEET("HD") X VEES("CRSR") W VEET("HD",I) S DY=DY+1
+ Q
+ENDSCR ;End Scroll Region
+ D SCROLL^%ZVEMKY2(1,VEE("IOSL"))
+ I $D(VEES("CON")) W @VEES("CON")
+ X VEES("RM80") W @VEE("IOF")
+ Q
+BOTTOM(PKG,CRSRON) ;Move to last line displayed.
+ ; PKG    - Package
+ ; CRSRON - If 1, tell REDRAW to leave on cursor
+ ;
+ NEW X
+ S X=999999999
+ S:$G(PKG)']"" PKG="K"
+ F  S X=+$O(^TMP("VEE",PKG,$J,X),-1) Q:X=0  Q:$G(^(X))'=" <> <> <>"
+ S VEET("TOP")=$S(X>0:X,1:1)
+ D REDRAW($G(CRSRON))
+ Q
+REDRAW(CRSRON) ;Redraw screen after running a menu selection
+ ;CRSRON=If 1, tell STARTSCR to leave on cursor
+ S VEET("BOT")=VEET("TOP")
+ S VEET("GAP")=VEET("SL")
+ S VEET("HLN")=VEET("TOP")
+ S VEET("H$Y")=VEET("S1")-1
+ D SCROLL($G(CRSRON))
+ Q
+HELP ;
+ D ENDSCR
+ W !?25,"V P E   S C R O L L E R"
+ W !,"The display you are viewing is utilizing the VPE generic scroller."
+ W !,"Displays that use this scroller are marked with ""<>"" at the extreme"
+ W !,"left side of the bar menu located at the bottom of the screen."
+ W !!?4,"<ARROW UP> ..........: Move up one line"
+ W !?4,"<ARROW DOWN> ........: Move down one line"
+ ;W !?4,"<F1><AU> ............: Move highlight to screen top"
+ ;W !?4,"<F1><AD> ............: Move highlight to screen bottom"
+ W !?4,"U,<F4><AU> ..........: Move up one page"
+ W !?4,"D,<F4><AD>,<RETURN> .: Move down one page"
+ W !?4,"T,<F4><AL>,<HOME> ...: Move to page 1"
+ W !?4,"B,<F4><AR>,<END> ....: Move to bottom (Last line displayed)"
+ W !?4,"^,<ESC><ESC>,<F1>E,<F1>Q ..: Quit"
+ W !?4,"F ...................: Find characters (Look on left side of line only)"
+ W !?4,"L ...................: Locate characters (Anywhere in the line)"
+ W !!,"If you hear a beep when you hit any of the above keys, you have reached"
+ W !,"the top or bottom of the display and can go no further."
+ D PAUSE^%ZVEMKC(1)
+ Q
+ERROR ;Error Trap
+ S FLAGQ=1
+ KILL ^TMP("VEE","K",$J)
+ D ENDSCR,ERRMSG^%ZVEMKU1("SCROLLER"),PAUSE^%ZVEMKU(2)
+ Q
+
+%ZVEMKY2
+%ZVEMKY2 ;DJB,KRN**Screen Variables ; 11/14/02 7:20am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+ ;;X VEES("CRSR"),VEES("RM0"). All others are: W @()
+SCRNVAR ;Screen Variables
+ I $G(VEES("RM0"))']"" D RIGHTMAR ;.........Right Margin
+ I $G(VEES("XY"))']"" D XY^%ZVEMKY1 ;.......Reset $X & $Y
+ Q:$G(VEES("CRSR"))]""  ;...................Position cursor
+ D CRSRPOS S VEES("CRSR")=VEES("CRSR")_" "_VEES("XY")
+ Q
+CRSRPOS ;Position cursor
+ Q:$D(VEES("CRSR"))
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),"XY")) S VEES("CRSR")=^("XY") Q
+ S VEES("CRSR")="W $C(27)_""[""_(DY+1)_"";""_(DX+1)_""H"""
+ Q
+RIGHTMAR ;Right Margin
+ I $D(VEES("RM0")),$D(VEES("RM80")) Q
+ ;
+ ;--> Default
+ S (VEES("RM0"),VEES("RM80"))=""
+ ;
+ I VEE("OS")=8!(VEE("OS")=18) S VEES("RM0")="U $I:0"
+ ;I VEE("OS")=16 S VEES("RM0")="U $I:WIDTH=0"
+ I VEE("OS")=17!(VEE("OS")=19) S VEES("RM0")="U $I:WIDTH=0"
+ ;
+ NEW RM
+ I $G(VEE("ID")) S RM=$G(^%ZVEMS("PARAM",VEE("ID"),"WIDTH"))
+ I $G(RM)']"" S RM=80 ;Default
+ I VEE("OS")=8!(VEE("OS")=18) S VEES("RM80")="U $I:"_RM Q
+ ;I VEE("OS")=16 S VEES("RM80")="U $I:WIDTH="_RM Q
+ I VEE("OS")=17!(VEE("OS")=19) S VEES("RM80")="U $I:WIDTH="_RM Q
+ Q
+WRAP ;Wrap & no wrap
+ I $D(VEES("WRAP")),$D(VEES("NOWRAP")) Q
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),15)),$P(^(15),"^",1)]"",$P(^(15),"^",2)]"" S VEES("WRAP")=$P(^(15),"^",1),VEES("NOWRAP")=$P(^(15),"^",2) Q
+ S VEES("WRAP")="$C(27)_""[?7h"""
+ S VEES("NOWRAP")="$C(27)_""[?7l"""
+ Q
+CRSRMOVE ;Cursor move
+ I $D(VEES("CU")),$D(VEES("CD")),$D(VEES("CR")),$D(VEES("CL")) Q
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),8)),$P(^(8),"^",1,4)'["^^" NEW NODE8 S NODE8=^(8) D  Q
+ . S VEES("CU")=$P(NODE8,"^",1),VEES("CD")=$P(NODE8,"^",2)
+ . S VEES("CR")=$P(NODE8,"^",3),VEES("CL")=$P(NODE8,"^",4)
+ S VEES("CU")="$C(27)_""[1A""" ;Cursor up
+ S VEES("CD")="$C(27)_""[1B""" ;Cursor down
+ S VEES("CR")="$C(27)_""[1C""" ;Cursor right
+ S VEES("CL")="$C(27)_""[1D""" ;Cursor left
+ Q
+CRSROFF ;Cursor on/off
+ I $D(VEES("CON")),$D(VEES("COFF")) Q
+ S VEES("CON")="$C(27)_""[?25h""" ;Cursor on
+ S VEES("COFF")="$C(27)_""[?25l""" ;Cursor off
+ Q
+CRSRSAVE ;Save Cursor/Restore Cursor
+ I $D(VEES("SC")),$D(VEES("RC")) Q
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),14)),$P(^(14),"^",3)]"",$P(^(14),"^",4)]"" S VEES("SC")=$P(^(14),"^",3),VEES("RC")=$P(^(14),"^",4) Q
+ S VEES("SC")="$C(27)_7"
+ S VEES("RC")="$C(27)_8"
+ Q
+REVVID ;Reverse Video
+ I $D(VEE("RON")),$D(VEE("ROFF")) Q
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),5)),$P(^(5),"^",4)]"",$P(^(5),"^",5)]"" S VEE("RON")=$P(^(5),"^",4),VEE("ROFF")=$P(^(5),"^",5) Q
+ S VEE("RON")="$C(27)_""[7m""",VEE("ROFF")="$C(27)_""[0m"""
+ Q
+GRAPHICS ;Graphics On/Off
+ I $D(VEES("GON")),$D(VEES("GOFF")) Q
+ I $G(IOST(0))]"",$D(^%ZIS(2,IOST(0),"G1")),$D(^("G2")) S VEES("GON")=^("G1"),VEES("GOFF")=^("G0") Q
+ S VEES("GON")="$C(27)_""(0""",VEES("GOFF")="$C(27)_""(B"""
+ Q
+SCROLL(TOP,BOTTOM) ;Set scroll region
+ S:$G(TOP)'>0 TOP=1 S:$G(BOTTOM)'>0 BOTTOM=VEE("IOSL")
+ W @("$C(27)_""["_TOP_";"_BOTTOM_"r""")
+ Q
+SCRL ;Scroll region variables
+ S VEES("INDEX")="$C(27)_""D""",VEES("REVINDEX")="$C(27)_""M""" ;Index
+ S VEES("INSRT")="$C(27)_""[1L""" ;Insert 1 line
+ Q
+SCRNVAR1 ;Lesser Used Screen Variables
+ S VEES("CION")="$C(27)_""[4h""",VEES("CIOFF")="$C(27)_""[4l""" ;Character insert
+ Q
+DTM ;Support for DataTree Mumps
+ Q:VEE("OS")'=9  Q:$I=1  Q:$G(^%ZVEMS("%",$J_$G(^%ZVEMS("SY")),"SHL"))'="RUN"
+ S ^%ZVEMS("%",$J_$G(^%ZVEMS("SY")),"DTM")=$ZDEV("IXXLATE")_"^"_$ZDEV("WRAP")
+ U $I:(IXXLATE=0) ;U $I:(IXXLATE=0:WRAP=0)
+ Q
+BRK ;Enable Control C
+ I $D(^%ZOSF("BRK")) X ^%ZOSF("BRK") Q
+ I VEE("OS")=16 U $I:CENABLE Q
+ I VEE("OS")=17 U $I:(CENABLE) Q
+ I VEE("OS")=18 U $I:("":"+B") Q
+ I VEE("OS")=19 U $I:(CENABLE) Q
+ B 1
+ Q
+NOBRK ;Disable Control C
+ I $D(^%ZOSF("NBRK")) X ^%ZOSF("NBRK") Q
+ I VEE("OS")=16 U $I:NOCENABLE Q
+ I VEE("OS")=17 U $I:(NOCENABLE) Q
+ I VEE("OS")=18 U $I:("":"-B") Q
+ I VEE("OS")=19 U $I:(NOCENABLE) Q
+ B 0
+ Q
+
+%ZVEMSTO
+%ZVEMSTO ;DJB,VSHL**Time Out - Screen Saver ; 11/14/02 7:22am
+ ;;12;VPE;;COPYRIGHT David Bolduc @1993
+ ;
+EN ;
+ I $G(VEESHL)'="RUN" W $C(7),!!?2,"This routine may only be run from the VShell.",! Q
+ NEW VEES D MARGIN
+TOP ;Come here from VMS1
+ NEW X S X="ERROR^%ZVEMSTO",@($$TRAP^%ZVEMKU1) KILL X
+ NEW DOT,DOT1,FF,FLAGQ,I,PASSWORD,WHICH,X,XX,XX1,Y
+ D INIT,INIT1,CUROFF
+ S WHICH=1,FLAGQ=0
+ F  D @("TYPE"_WHICH) Q:FLAGQ  S WHICH=WHICH+1 S:WHICH>4 WHICH=1
+EX ;Exit
+ D CURSOR X FF,VEES("RM80")
+ I $D(^%ZOSF("BRK")) X ^("BRK") ;Reenable Ctrl C
+ Q
+TYPE1 ;Top to Bottom
+ F Y=1:1:VEE("IOSL") Q:FLAGQ  F X=1:1:VEE("IOM") D DRAW Q:FLAGQ
+ D DOTSET
+ Q
+TYPE2 ;Left to Right
+ F X=1:1:VEE("IOM") Q:FLAGQ  F Y=1:1:VEE("IOSL") D DRAW Q:FLAGQ
+ D DOTSET
+ Q
+TYPE3 ;Bottom to Top
+ F Y=VEE("IOSL"):-1:0 Q:FLAGQ  F X=VEE("IOM"):-1:0 D DRAW Q:FLAGQ
+ D DOTSET
+ Q
+TYPE4 ;Right to Left
+ F X=VEE("IOM"):-1:0 Q:FLAGQ  F Y=VEE("IOSL"):-1:0 D DRAW Q:FLAGQ
+ D DOTSET
+ Q
+DRAW ;
+ R XX#1:0 I $T S FLAGQ=1 Q
+ W $C(27)_"["_Y_";"_X_"H"
+ ;Smiley face
+ I Y=5!(Y=17)&(",19,21,59,61,"[(","_X_",")) W 0 Q
+ I Y=5!(Y=17)&(",20,60,"[(","_X_",")) W " " Q
+ I Y=6!(Y=18)&(",19,21,59,61,"[(","_X_",")) W " " Q
+ I Y=6!(Y=18)&(",20,60,"[(","_X_",")) W ">" Q
+ I Y=7!(Y=19)&(",21,61,"[(","_X_",")) W " " Q
+ I Y=7!(Y=19)&(",19,59,"[(","_X_",")) W $S(DOT="_":"\",1:"/") Q
+ I Y=7!(Y=19)&(",20,60,"[(","_X_",")) W $S(DOT="_":"/",1:"\") Q
+ ;Box pattern
+ I X<41,Y<13 W $S(X<15!(X>25):DOT,Y<4!(Y>9):DOT,1:DOT1) Q
+ I X<41,Y>12 W $S(X<15!(X>25):DOT1,Y<16!(Y>21):DOT1,1:DOT) Q
+ I X>40,Y<13 W $S(X<55!(X>65):DOT1,Y<4!(Y>9):DOT1,1:DOT) Q
+ I X>40,Y>12 W $S(X<55!(X>65):DOT,Y<16!(Y>21):DOT,1:DOT1)
+ Q
+DOTSET ;Change DOT
+ S DOT=$S(DOT="_":"|",1:"_"),DOT1=$S(DOT1="_":"|",1:"_")
+ Q
+CURSOR W $C(27)_"[?25h" Q  ;Cursor on
+CUROFF W $C(27)_"[?25l" Q  ;Cursor off
+ERROR ;Turn Cursor back on
+ D CURSOR,ERRMSG^%ZVEMKU1("'SCRN SAVER'"),PAUSE^%ZVEMKU(2)
+ Q
+INIT ;Initialize variables
+ S PASSWORD="++"
+ I $D(^%ZOSF("NBRK")) X ^("NBRK") ;Disable 'Ctrl C'
+ Q
+INIT1 ;
+ S DOT="_",DOT1="|",FF="F I=1:1:50 W !"
+ X FF,VEES("RM0")
+ Q
+MARGIN ;Adjust margin if Micronetics
+ I VEE("OS")=8 S VEES("RM0")="U $I:(0)",VEES("RM80")="U $I:(80)"
+ E  S (VEES("RM0"),VEES("RM80"))=""
+ Q
+VMS ;Drop to VMS to disable Control Y
+ I $G(VEE("OS"))']"" W $C(7),!!?2,"This routine may only be run from the VShell.",! Q
+ NEW %SPAWN S %SPAWN="@TIMEOUT.COM" D ^%SPAWN
+ Q
+VMS1 ;TIMEOUT.COM should call here
+ NEW VEES
+ S (VEES("RM0"),VEES("RM80"))=""
+ G TOP
+BLANK ;Call here to blank the screen
+ I $G(VEESHL)'="RUN" W $C(7),!!?2,"This routine may only be run from the VShell.",! Q
+ NEW I,PASSWORD,XX
+ D INIT,CUROFF
+ X VEE("EOFF") F I=1:1:50 W !
+BLANK1 R XX#$L(PASSWORD) I XX=PASSWORD X VEE("EON") D CURSOR Q
+ G BLANK1
+ Q
+
+
+

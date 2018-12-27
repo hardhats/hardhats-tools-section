@@ -1,0 +1,270 @@
+<html>
+
+<head>
+<title>Customizing VISTA's %INDEX</title>
+</head>
+
+<body>
+<div align="center"><center>
+
+<table border="0" cellpadding="6" cellspacing="6" width="100%">
+  <tr>
+    <td align="center" width="20%"><img src="../../images/logo.gif" alt="hat &amp; gloves" WIDTH="120" HEIGHT="79"><br>
+    <font size="5" face="Arial"><strong>Customizing<br>
+    %INDEX</strong></font></td>
+    <td width="80%"><pre><font size="5" face="Arial"><strong>            </strong></font> </pre>
+    <!--webbot bot="Include" u-include="../../navicon_plain.html" tag="BODY" startspan -->
+
+<p align="center"><a href="../../index.html"><img src="../../images/shopSHomeOff.gif" alt="Home Page" align="top" border="0" width="54" height="76"></a><a href="../../m/Mmain.html"><img src="../../images/shopSMOff.gif" alt="M |" align="top" border="0" width="54" height="76"></a> <a href="../../fileman/FMmain.html"><img src="../../images/shopSFmOff.gif" alt=" FileMan |" align="top" border="0" width="54" height="76"></a><a href="../../kernel/KRNmain.html"><img src="../../images/shopSKrnOff.gif" alt=" Kernel |" align="top" border="0" width="54" height="76"></a><a href="../../cs/CSmain.html"><img src="../../images/shopSCsOff.gif" alt=" CS/MM/Web |" align="top" border="0" width="62" height="86"></a><a href="../TOOLSmain.html"><img src="../../images/shopSPgmOff.gif" alt=" Programmer Tools |" align="top" border="0" width="54" height="86"></a> <a href="../../apps/APPSmain.html"><img src="../../images/shopSAppOff.gif" alt="Applications" align="top" border="0" width="54" height="76"></a></p>
+<!--webbot bot="Include" endspan i-checksum="60084" -->
+</td>
+  </tr>
+</table>
+</center></div>
+
+<p>In the course of upgrading the utility routines for Micronetics Standard MUMPS (<a href="http://www.micronetics.com/">MSM</a>), version 4.4, the need for an improved version
+of the utility program <tt>^%INDEX</tt> was recognized.</p>
+
+<p>Through the <a href="../../foia.html">FOIA process</a>, and the kind help of Greg
+Kreis, a copy of the current version of the VISTA %INDEX software was obtained. <font color="#800000"><small>(Note from grk: VISTA moved the %INDEX routines into the XIND*
+namespace. It appears the author of this article has namespaced the routines in %IND* for
+his use. This is one of those scenarios where a routine name, %INDEX, has been adopted as
+the product name even after it has been re-namespaced.)</small></font></p>
+
+<p>The DVA's (VISTA) software, of course, relies on the services of the <tt>Kernel</tt>
+software to support the various utility routines. In order to make <tt>^%INDEX</tt> work
+as a &quot;stand-alone&quot; utility program in MSM, a minor number of modifications was
+needed to make <tt>^%INDEX</tt> work without the support of the <tt>Kernel</tt> routines.</p>
+
+<p>The text below explains which modifications were made to &quot;customize&quot; the <tt>^%INDEX</tt>
+software for use as a &quot;stand-alone&quot; utility. From the limited list of
+modifications, it becomes once again clear how important it is to isolate
+platform-specific code in a small number of subroutines: because the DVA's software
+follows this premise, the process of &quot;customizing&quot; the software was a simple and
+very straightforward task.</p>
+
+<p>Ed de Moel<br>
+December 1997</p>
+
+<hr>
+
+<h3>The modifications</h3>
+
+<ol>
+  <li>Calls to <tt>^%ZIS</tt> were replaced by new subroutines added to <tt>^%INDEX</tt> as
+    follows: <ul>
+      <li><tt><b>DO ^%ZIS</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>DO <a href="index_mod.html#c1">%ZIS^%INDEX</a></b></tt>
+      </li>
+      <li><tt><b>DO ^%ZISC</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>DO <a href="index_mod.html#c2">%ZISC^%INDEX</a></b></tt>
+      </li>
+      <li><tt><b>DO HOME^%ZIS</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>DO <a href="index_mod.html#c3">%ZISHOME^%INDEX</a></b></tt>
+      </li>
+    </ul>
+  </li>
+  <li>Calls to <tt>NOW^%DTC</tt> were replaced by a new subroutine added to <tt>^%INDEX</tt>
+    as follows: <ul>
+      <li><tt><b>DO NOW^%DTC</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>DO <a href="index_mod.html#c4">NOW^%INDEX</a></b></tt>
+      </li>
+    </ul>
+  </li>
+  <li>Calls to <tt>DD^%DT</tt> were replaced by a new subroutine added to <tt>^%INDEX</tt> as
+    follows: <ul>
+      <li><tt><b>DO DD^%DT</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>DO <a href="index_mod.html#c5">DDDT^%INDEX</a></b></tt>
+      </li>
+    </ul>
+  </li>
+  <li>References to global variable <tt>^%ZOSF</tt> were replaced as follows: <ul>
+      <li><tt><b>X ^%ZOSF(&quot;UCI&quot;)</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>S Y=$ZU(0)</b></tt>
+      </li>
+      <li><tt><b>^%ZOSF(&quot;VOL&quot;)</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>$SY</b></tt><br>
+        (<i>Interesting: there now is an ANSI standard method to obtain a piece of information
+        that used to be non-standard.</i>) </li>
+      <li><tt><b>I $D(^%ZOSF(&quot;RSEL&quot;)) X ^(&quot;RSEL&quot;)</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>D ^%RSEL</b></tt> </li>
+      <li><tt><b>X ^%ZOSF(&quot;TEST&quot;)</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"> <tt><b>I $D(^ (X))</b></tt>
+      </li>
+      <li><tt><b>X ^%ZOSF(&quot;LOAD&quot;)</b></tt> <img src="right.gif" WIDTH="50" HEIGHT="11"><br>
+        <tt><b>S %zosf=&quot;S %N=0 X &quot;&quot;ZL @X F XCNP=XCNP+1:1 S %N=%N+1,%=$T(+%N)
+        Q:$L(%)=0 S
+        @(DIF_XCNP_&quot;&quot;&quot;&quot;,0)&quot;&quot;&quot;&quot;)=%&quot;&quot;&quot;</b></tt><br>
+        and then later: <tt><b>x %zosf</b></tt><br>
+        <i>Interesting: there now also is an ANSI standard method to perform the elementary piece
+        of this action that used to be platform specific:</i><br>
+        <tt><b>For I=1:1 Set X=$Text(+I^@routine) Quit:X=&quot;&quot; Set copy(I)=X</b></tt> </li>
+    </ul>
+  </li>
+</ol>
+
+<p>With these modifications, the indexer ran on an MSM system without producing any
+errors.</p>
+
+<hr>
+
+<h3>Additional Capabilities</h3>
+
+<p>In order to provide additional (MSM-specific) capabilities, the following modifications
+were made: 
+
+<ol>
+  <li>Add names of implementation-specific entities to the lists in <tt>^%INDX6</tt> <ul>
+      <li>Z commands </li>
+      <li>Z functions </li>
+      <li>Z variables </li>
+      <li>(There aren't any Z <u>ssvn</u>s yet) </li>
+    </ul>
+  </li>
+  <li>Make <tt>^%INDX9</tt> recognize names of <u>svn</u>s, <u>function</u>s and <u>ssvn</u>s
+    when spelled in lower case <ul>
+      <li>Added extrinsic function <a href="index_mod.html#c6">$$UCASE</a> </li>
+      <li>Added three references to <a href="index_mod.html#c6">$$UCASE</a> </li>
+    </ul>
+  </li>
+  <li>Add a question to suppress SACC warnings. <ul>
+      <li>Input option 91 added in <tt>^%INDX6</tt> (in the comments on top of the routine) </li>
+      <li>Question added in <tt>^%INDX6</tt><br>
+        <tt><b>D ANS(&quot;Include DVA internal warnings? NO//&quot;,&quot;NY&quot;,&quot;Print
+        SACC warnings&quot;) G:X=&quot;^&quot; END S INP(91)=&quot;Yy&quot;[X</b></tt> </li>
+      <li>Quit-if code added in <tt>A^%INDX1</tt><br>
+        <tt><b>I 'INP(91),$E($P(%1,&quot;;&quot;,4),1)=&quot;S&quot; Q</b></tt> </li>
+    </ul>
+  </li>
+  <li>Make <tt>^%INDX8</tt> recognize names of commands when spelled in lower case <ul>
+      <li>Added extrinsic function <a href="index_mod.html#c6">$$UCASE</a> </li>
+      <li>changed one occurrence of ?1U into ?1A </li>
+      <li>Added five references to <a href="index_mod.html#c6">$$UCASE</a> </li>
+    </ul>
+  </li>
+  <li>Make <tt>^%INDX8</tt> recognize names of <u>ssvn</u>s </li>
+  <li>Make <tt>ANS^%INDX6</tt> recognize lower case input for all questions </li>
+  <li>Make <tt>^%INDX2</tt> recognize lower case in names of global and local variables <ul>
+      <li>At line GLO change ?1U and ?1A </li>
+      <li>At line GLO change ?7UN and ?7AN </li>
+      <li>At line LOC change ?8UN and ?8AN </li>
+      <li>At line LOC change ?7UN and ?7AN </li>
+    </ul>
+  </li>
+  <li>Make <tt>^%INDX8</tt> recognize library functions ($%) and external functions ($&amp;): <ul>
+      <li>Test at line FUN becomes:<br>
+        <tt><b>I &quot; $$ $&amp; $% &quot;[(&quot; &quot;_$E(ARG,I,I+1)_&quot; &quot;)</b></tt> </li>
+    </ul>
+  </li>
+</ol>
+
+<h3>Further Corrections</h3>
+
+<p>In the process of looking at the software, a couple of minor glitches were discovered: 
+
+<ol>
+  <li>In <tt>^%INDX7</tt>, the name of ^$WINDOW was spelled XINDOW </li>
+  <li>In <tt>^%INDX8</tt>, the compound goto command just before label <tt>GRB</tt> is
+    sensitive to changes in the value of local variable <tt>X</tt>. Changing this line to:<br>
+    <tt><b>D
+    @$S(&quot;BCHKLMNOPQRUVWZ&quot;[X:&quot;GRB&quot;,X=&quot;S&quot;:&quot;SET&quot;,&quot;DGX&quot;[X:&quot;DGX&quot;,&quot;IE&quot;[X:&quot;IFE&quot;,X=&quot;F&quot;:&quot;FOR&quot;)
+    S:EOC IDT=IDT-EOC G EE</b></tt><br>
+    has the effect that at most one of the possible destinations will be executed, even if the
+    value of local variable <tt>X</tt> changes in one of these subroutines. </li>
+</ol>
+
+<hr>
+
+<p><a name="c0"></a></p>
+
+<h3>Initialization</h3>
+
+<pre>
+ k IO
+ s IOM=80 ; Right margin
+ s IOSL=50 ; Page length
+ s IOF=&quot;#&quot; ; Form feed _format_
+ s IO(0)=$p
+</pre>
+
+<hr>
+
+<p><a name="c1"></a></p>
+
+<h3>%ZIS^%INDEX</h3>
+
+<pre>
+%ZIS d OUT^%SDEV s POP=$d(QUIT) q:POP
+ u %DEV s IO=%DEV
+ s IOM=80 ; Right margin
+ s IOSL=50 ; Page length
+ s IOST=&quot;&quot; ; 
+ s ION=&quot;&quot; ; 
+ s IOF=&quot;#&quot; ; Form feed _format_
+ s IOP=&quot;&quot; ; 
+ s IO(0)=$p
+ q
+</pre>
+
+<hr>
+
+<p><a name="c2"></a></p>
+
+<h3>%ZISC^%INDEX</h3>
+
+<pre>
+%ZISC C %DEV Q
+</pre>
+
+<hr>
+
+<p><a name="c3"></a></p>
+
+<h3>%ZISHOME^%INDEX</h3>
+
+<pre>
+%ZISHOME U $p Q
+</pre>
+
+<hr>
+
+<p><a name="c4"></a></p>
+
+<h3>NOW^%INDEX</h3>
+
+<pre>
+NOW S %=$ZHL(1,&quot;yyyymmdd&quot;,$H)-17000000_&quot;.&quot;_$ZHL(2,&quot;HHmmss&quot;,$P($H,&quot;,&quot;,2)) q
+</pre>
+
+<hr>
+
+<p><a name="c5"></a></p>
+
+<h3>DDDT^%INDEX</h3>
+
+<pre>
+DDDT n d,t
+ s d=Y\1#100_&quot;-&quot;_$p(&quot;JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC&quot;,&quot; &quot;,Y\100#100)_&quot;-&quot;_(Y\10000+1700),t=&quot;&quot;
+ S:Y[&quot;.&quot; t=$P(Y,&quot;.&quot;,2)_&quot;0000&quot;,t=$e(t,1,2)_&quot;:&quot;_$e(t,3,4)
+ S:$g(%DT)[&quot;S&quot; t=$P(Y,&quot;.&quot;,2)_&quot;000000&quot;,t=$e(t,1,2)_&quot;:&quot;_$e(t,3,4)_&quot;:&quot;_$e(t,5,6)
+ S Y=d s:t'=&quot;&quot; Y=Y_&quot;, &quot;_t
+ q
+</pre>
+
+<hr>
+
+<p><a name="c6"></a></p>
+
+<h3>UCASE^%INDX8 and UCASE^%INDX9</h3>
+
+<pre>
+UCASE(X) Q $TR(X,&quot;abcdefghijklmnopqrstuvwxyz&quot;,&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;)
+</pre>
+
+<hr>
+<script language="JavaScript">
+<!--
+
+document.write("<font face=\"arial,helv\" size=1> This page updated on " + document.lastModified+".")
+
+//--></script>
+<!--webbot bot="Include" u-include="../../navtext.html" tag="BODY" startspan -->
+
+<p align="center"><font size="2">Search | </font><a href="/index.html"><font size="2">Home</font></a><font size="2">
+| </font><a href="../../m/Mmain.html"><font size="2">MUMPS</font></a><font size="2"> | </font><a href="../../fileman/FMmain.html"><font size="2">Fileman</font></a><font size="2"> | </font><a href="../../kernel/KRNmain.html"><font size="2">Kernel</font></a><font size="2"> | </font><a href="../../cs/CSmain.html"><font size="2">C/S,
+Mailman, Web</font></a><font size="2"> | </font><a href="../TOOLSmain.html"><font size="2">Programmer Tools</font></a><font size="2"> | </font><a href="../../apps/APPSmain.html"><font size="2">Applications</font></a></p>
+<!--webbot bot="Include" endspan i-checksum="2628" -->
+
+</body>
+</html>

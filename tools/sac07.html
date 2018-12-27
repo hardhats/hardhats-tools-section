@@ -1,0 +1,1047 @@
+<html>
+  <head>
+    <title>
+      VistA Programming Standards and Conventions - April 2007
+    </title>
+    <style type="text/css">
+      .margins01
+      {
+	     margin-left: .5cm;
+	     margin-right: 1cm;
+      }
+      .mar01in01
+      {
+	     margin-left: .5cm;
+	     text-indent: -.5cm;
+      }
+      .leftmargin01
+      {
+	     margin-left: .5cm;
+      }
+      .leftmargin02
+      {
+	     margin-left: 1cm;
+      }
+    </style>
+	</head>
+  <body class="margins01">
+    <div align="center"><center>
+
+    <table border="0" cellpadding="6" cellspacing="6" width="100%">
+      <tr>
+        <td align="center" width="20%">
+          <img src="../images/logo.gif" alt="hat &amp; gloves" width="120" height="79"><font size="5" face="Arial">
+          <strong><br>SAC</strong></font>
+        </td>
+        <td width="80%"><pre><font size="5" face="Arial"><strong>            </strong></font> </pre>
+          <p align="center">
+          <a href="../index.html"><img src="../images/shopSHomeOff.gif" alt="Home Page" align="top" border="0" width="54" height="76"></a>
+          <a href="../m/Mmain.html"><img src="../images/shopSMOff.gif" alt=" M |" align="top" border="0" width="54" height="76"></a> 
+          <a href="../fileman/FMmain.html"><img src="../images/shopSFmOff.gif" alt=" FileMan |" align="top" border="0" width="54" height="76"></a>
+          <a href="../kernel/KRNmain.html"><img src="../images/shopSKrnOff.gif" alt=" Kernel |" align="top" border="0" width="54" height="76"></a>
+          <a href="../cs/CSmain.html"><img src="../images/shopSCsOff.gif" alt=" CS/MM/Web |" align="top" border="0" width="62" height="86"></a>
+          <a href="TOOLSmain.html"><img src="../images/shopSPgmOn.gif" alt=" Programmer Tools |" align="top" border="0" width="54" height="86"></a> 
+          <a href="../apps/APPSmain.html"><img src="../images/shopSAppOff.gif" alt=" Applications" align="top" border="0" width="54" height="76"></a>
+          </p>
+        </td>
+      </tr>
+    </table>
+    </center></div>
+
+    <h1 align="center"><img src="../images/lineNail4.gif" width="396" height="16"></h1>
+    <p>&nbsp;</p>
+    <p align="center">
+      <b><font size="+3">VistA Programming Standards and Conventions</font></b>
+    </p>
+    <p align="center">
+      <b><font size="+1">Revised 04/03/2007</font></b>
+    </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <div class="margins01">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="center"><a name="TOC"><b>Table of Contents</b></a></td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left"><a href="#_TOC001">General Programming Standards and Conventions</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC002">Definitions applicable to this document</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC003">Files</a></td>
+        </tr>
+        <tr>
+          <td align="left"><a href="#_TOC004">M Language Programming Standards and Conventions</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC005">Routines&nbsp;&nbsp;(Routine structure and format)</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC006">Variables</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC007">Commands</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC008">Functions</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC009">Name Requirements</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC010">Options (Option file entries)</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC011">Device Handling</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC012">Miscellaneous</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC013">Conventions</a></td>
+        </tr>
+        <tr>
+          <td align="left"><a href="#_TOC014">Interface Programming Standards and Conventions</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC015">User Interface Standards for Scroll Mode and Screen Mode</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC016">User Interface Conventions for Scroll Mode and Screen Mode</a></td>
+        </tr>
+        <tr>
+          <td align="left">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#_TOC017">User Interface Conventions for GUI Mode</a></td>
+        </tr>
+     </table>			
+     <p>&nbsp;</p>
+       <a name="_TOC001"><b>1.&nbsp;&nbsp;General Programming Standards and Conventions</b></a>
+     <p>
+       The definitions, standards, and conventions within this section apply to all programming and user environments in use in the
+       Veterans Health Information Systems and Technology Architecture (VistA).&nbsp; This includes all applications that use commercial
+       software products as an integral part of VistA (but not to the commercial application itself unless the commercial application is
+       installed in the VistA environment) and to all development environments including, but not limited to programming languages
+       such as M or Pascal and graphical user interface (GUI) environments such as Delphi.
+     </p>
+     <p>
+        <a name="_TOC002"><b>Definitions applicable to this document</b></a>
+     </p>
+     <p>
+       <table border="1" cellspacing="0" cellpadding="3">
+         <tr align="left" valign="top">
+           <td>Actual List</td>
+           <td style="font-family:'Courier New', Courier, monospace">
+               These are the actual values that are passed into an API or Supported Reference by a caller.&nbsp; For example: when
+               the variable DA is equal to 200, the 200 is the actual parameter used when ^DIE is called.&nbsp; A group of these
+               values are the Actual List.
+           </td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>CONVENTIONS</td>
+             <td>
+                 Programming guidelines which are designed to promote consistency and safety across VistA applications. &nbsp;
+                 Exemptions from conventions are not required, but developers are strongly encouraged to follow them.&nbsp;
+                 It is also strongly recommended that the developer document any deviation from these conventions.
+             </td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>DBA</td>
+             <td>Database Administrator</td>
+           </tr>
+           <tr align="left" valign="top">
+               <td>DBIA</td>
+               <td>DataBase Integration Agreement.&nbsp; See ICR.</td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>EXEMPTION</td>
+             <td>
+                 Authority granted by the SACC to a specific version of a VistA application which allows that application to not
+                 comply with a particular section of the SAC for a specified timeframe.
+             </td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>EXTENSIONS</td>
+             <td>
+                 An addition, deletion, or modification to the current Standards and Conventions document.&nbsp; Each extension
+                 will contain an appropriate effective date, and may optionally contain an expiration date or event.&nbsp; (The
+                 Programming SACC will update the SAC quarterly via extensions, which have the full weight of the original
+                 SAC.&nbsp; Every effort will be made to keep all VistA development standards and conventions in one location.)
+             </td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>Formal List</td>
+             <td>
+                 These are the formal values that are passed into an API or Supported Reference by a caller.&nbsp; For example: when
+                 the variable DA is equal to 200, DA is the formal parameter used when ^DIE is called.&nbsp; A group of these
+                 values are the Formal List.
+             </td>
+           </tr>
+           <tr align="left" valign="top">
+             <td>IA</td>
+               <td valign="top">
+                   Integration Agreement. IAs can be accessed via the DBA menu on FORUM.
+               </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>IAC</td>
+              <td>Integration Agreement Committee</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>ICR</td>
+              <td>Integration Control Registrations (Formerly Database Integration Agreements)</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>Incremental Lock</td>
+              <td>Allows multiple locks on the same resource.</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>KERNEL</td>
+              <td>
+                  The Kernel is a set of software utilities that form the foundation of VistA and include elements that start with
+                  the namespaces XG*, XLF*, XOB*, XPD*,XQ*, XT*, XU*, XV*, ZI*, ZO*, ZT*, ZU*.
+              </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>ls</td>
+              <td>
+                  Refers to one or more spaces, or a single tab character, at the beginning of the line or between the label and body
+                  of the line.
+              </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>MAILMAN</td>
+              <td>
+                  Mailman is a set of software utilities that form the foundation of VistA &#39;s electronic mail and
+                  communications and include elements that start with the namespace XM*.
+              </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>NAMESPACE</td>
+              <td>
+                  A unique prefix of between 2 and 4 alpha characters assigned by the DBA.</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>NEW</td>
+              <td>
+                  A way to create a new version of a variable either by explicit declaration or implicitly through parameter passing. </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td nowrap>Non-Comment source line&nbsp;</td>
+               <td>
+                   An executable line of code, or a line of text or data referenced by an executable line of code.</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>PACKAGE</td>
+              <td>
+                  A set of routines, files, options, templates, security keys, screens, bulletins, functions, help frames, forms,
+                  blocks, objects, protocols, dialogues, list templates, windows, etc. namespaced according to DBA requirements
+                  that function as a unit.
+                  </p>
+               </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>SACC</td>
+              <td><!-- a href="http://vista.med.va.gov/sacc/" -->Standards and Conventions Committee</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>STANDARD</td>
+              <td>A rule which all VistA software must follow.</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>SUPPORTED<br>REFERENCE</td>
+              <td>
+                  Documentation regarding routines, labels, extrinsic functions, files, or global nodes that are accepted and
+                  documented by the IAC for use by all packages.&nbsp; Supported references are listed on the DBA menu on
+                  FORUM.&nbsp;
+              </td>
+            </tr>
+            <tr align="left" valign="top">
+              <td>VA FileMan</td>
+              <td>
+                  The Database Management System for VistA, with namespaces DD*, DI* and DM*.</td>
+            </tr>
+            <tr align="left" valign="top">
+              <td valign="top">VistA</td>
+              <td>Veterans Health Information Systems and Technology Architecture</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+           <a name="_TOC003"><b>Files</b></a>
+        </p>
+        <p class="mar01in01">
+          Naming requirements for files used by VistA packages.
+        </p>
+        <p class="mar01in01">
+           All VA FileMan files in the M Language environment must be number spaced in the number space assigned to the package by the DBA.
+        </p>
+        <p class="mar01in01">
+             All Windows, DOS, VMS, or other host files created or exported as part of a VistA application shall be namespaced in the namespace
+             assigned by the DBA.
+          </p>
+          <p class="mar01in01">
+             Packages exporting script files should provide script files for all the terminal emulation packages commonly in use in the VA.
+          </p>
+         <p class="mar01in01">
+             Packages exporting spreadsheet templates should apply protection to embedded formulas to prevent accidental deletion by a user.&nbsp;
+             Spreadsheet templates should contain documentation describing the purpose of the template, complex functions, and user help.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC004"><b>2.&nbsp;&nbsp;M Language Programming Standards and Conventions</b></a>
+         </p>
+         <p class="leftmargin02">
+            All M-based VistA software will meet the following standards, and comply with the spirit of the conventions.
+         </p>
+         <p class="mar01in01">
+            2.1&nbsp;&nbsp;&nbsp;&nbsp;The 1995 ANSI/MDC X11.1 Sections 1 and 2 will be adhered to unless explicitly modified by this document.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC005"><b>2.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Routines&nbsp; (Routine structure and format)</b></a>
+         </p>
+         <p class="mar01in01">
+            2.2.1&nbsp;&nbsp;&nbsp;&nbsp;The first line of a routine must be in the following format:&nbsp;routine name&lt;ls&gt;;
+            site/programmer&lt;space&gt;-&lt;space&gt;brief description [optional space];date [time is optional].
+         </p>
+         <p class="leftmargin02">
+            ZZAA12 ;DALOI/XXX &ndash; Example Routine;2/13/07
+         </p>
+         <p class="mar01in01">
+            2.2.1.1&nbsp;&nbsp;&nbsp;&nbsp;The first line of a routine cannot contain the formal list for parameter passing.
+         </p>
+         <p class="mar01in01">
+            2.2.1.2&nbsp;&nbsp;&nbsp;&nbsp;Routines generated by VA FileMan or Kernel and other compiled
+            routines used in exporting a package, need not comply with this standard (i.e., 2.2.1).
+         </p>
+         <p class="mar01in01">
+            2.2.2&nbsp;&nbsp;&nbsp;&nbsp;The second line of a routine must be in the following format:
+            [LABEL-optional]&lt;ls&gt;;;version number; package name;**p<sub>m</sub>,...p<sub>n</sub>**; version date;Build n where:
+         </p>
+         <p class="leftmargin02">;;1.0;PACKAGE;**p<sub>m</sub>,&hellip;p<sub>n</sub>**;Feb 1,2007;Build 1</p>
+         <p class="mar01in01">
+            2.2.2.1&nbsp;&nbsp;&nbsp;&nbsp;The version number must be the same on all of the
+            package-namespaced routines.
+         </p>
+         <p class="mar01in01">
+            2.2.2.2&nbsp;&nbsp;&nbsp;&nbsp;p<sub>m</sub>,...p<sub>n</sub> are the applied patch numbers, in
+            order of patch release, separated by commas. This &quot;;&quot;
+            piece is null if there are no patches.
+         </p>
+         <p class="mar01in01">
+            2.2.2.3&nbsp;&nbsp;&nbsp;&nbsp;The version date must be the same on all of the package namespaced routines.
+         </p>
+         <p class="mar01in01">
+            2.2.2.3.1&nbsp;&nbsp;&nbsp;&nbsp;Kernel utilities should be used to update the version date.
+         </p>
+         <p class="mar01in01">
+            2.2.2.4&nbsp;&nbsp;&nbsp;&nbsp;Build n [optional] will be automatically added to the routines by
+            KIDS transport.&nbsp; The build number may not be manually edited.
+         </p>
+         <p class="mar01in01">
+            2.2.2.5&nbsp;&nbsp;&nbsp;&nbsp;Routines compiled from templates, cross-references, etc., by VA
+            FileMan during or after package installation are exempt from the second line requirement.
+         </p>
+         <p class="mar01in01">
+            2.2.3&nbsp;&nbsp;&nbsp;&nbsp;If local modifications to a routine are restricted or prohibited by
+            policy or directive, the third line should contain an appropriate notice. (e.g., &quot;Per VHA Directive 2004-038, this routine
+            should not be modified&quot;.)
+            <!-- VHA Directives can be found at <a href=
+            "http://vaww1.va.gov/vhapublications/publications.cfm?Pub=1">http://vaww1.va.gov/vhapublications/publications.cfm?Pub=1</a>.<-->
+         </p>
+         <p class="mar01in01">
+            2.2.4&nbsp;&nbsp;&nbsp;&nbsp;Labels are limited to eight (8) characters (not including the formal list for parameter passing) and may 
+            not contain lower case characters.
+         </p>
+         <p>
+            2.2.4.1&nbsp;&nbsp;&nbsp;&nbsp;LABEL+OFFSET references will not be used except for $TEXT references.
+         </p>
+         <p class="mar01in01">
+            2.2.4.2&nbsp;&nbsp;&nbsp;&nbsp;Lines referenced by $TEXT for use other than to check for the existence of a routine or a line label 
+            in that routine must be in the following format: [LABEL-optional]&lt;ls&gt;;;text or M code.
+         </p>
+         <p class="mar01in01">
+            2.2.5&nbsp;&nbsp;&nbsp;&nbsp;The line body must contain at least 1 character, must not exceed 245 characters in length, and must 
+            contain only the ASCII characters values 32-126.&nbsp; Line labels, local and global variable names, system variables, SSVNs, 
+            etc. must be uppercase.
+         </p>
+         <p class="mar01in01">
+            2.2.6&nbsp;&nbsp;&nbsp;Package routine names of the following forms will not be used:
+         </p>
+         <p class="mar01in01">
+            2.2.6.1&nbsp;&nbsp;&nbsp;&nbsp;NAMESPACE_I* (with the exceptions of Kernel, VA FileMan, and routines created to 
+            support the INIT process).
+         </p>
+         <p class="mar01in01">
+            2.2.6.2&nbsp;&nbsp;&nbsp;&nbsp;NAMESPACE_NTE* (with the exception of the package integrity routines).
+         </p>
+         <p class="mar01in01">
+            2.2.7&nbsp;&nbsp;&nbsp;&nbsp;The maximum routine size, as determined by executing ^%ZOSF(&quot;SIZE&quot;), is 20,000 
+            characters. 15,000 of the allowed 20,000 characters may be non-comment source lines (including &ldquo;;;&rdquo; comment 
+            lines).&nbsp; 5,000 characters are reserved for non-&ldquo;;;&rdquo; comments.
+         </p>
+         <p class="mar01in01">
+            2.2.8&nbsp;&nbsp;&nbsp;&nbsp;Vendor specific subroutines may not be called directly except by Kernel, Mailman, and VA FileMan.
+         </p>
+         <p class="mar01in01">
+            2.2.9&nbsp;&nbsp;&nbsp;&nbsp;All applications will use documented TaskMan utilities to interface with TaskMan.
+         </p>
+         <p class="mar01in01">
+            2.2.10&nbsp;&nbsp;&nbsp;&nbsp;Naked references must either be appropriately preceded by the full reference defining 
+            it or be documented.
+         </p>
+         <p class="mar01in01">
+            2.2.10.1&nbsp;&nbsp;&nbsp;&nbsp;An appropriate preceding full reference is one that is on the same physical routine 
+            line as the naked reference and has no code between it and the naked reference that branches in any manner to other 
+            lines of code or executables.
+         </p>
+         <p class="mar01in01">
+            2.2.10.2&nbsp;&nbsp;&nbsp;&nbsp;Naked references requiring documentation must be documented within the routine in the 
+            immediate vicinity of the naked reference.&nbsp;
+            Naked references that are preceded by a full reference which is outside of the routine where the naked reference is used must have
+            documentation in both the routine containing the full reference and the routine containing the naked reference.&nbsp; This
+            documentation must be in the immediate vicinity of the appropriate reference.
+         </p>
+         <p class="mar01in01">
+            2.2.10.3&nbsp;&nbsp;&nbsp;&nbsp;Uses of naked references in called utilities are exempt, e.g., 
+            S DIC=200,DIC(0)=&quot;AEQ&quot;,DIC(&quot;S&quot;)=&quot;I
+            $L($P($G(^(1)),&quot;^&quot;,9))&quot; D ^DIC is a legitimate use of the naked reference.
+         </p>
+         <p class="mar01in01">
+            2.2.11&nbsp;&nbsp;&nbsp;&nbsp;% Routines
+         </p>
+         <p class="mar01in01">
+            2.2.11.1&nbsp;&nbsp;&nbsp;&nbsp;No application will distribute % routines. (Exemptions:&nbsp; Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.2.11.2&nbsp;&nbsp;&nbsp;&nbsp;No % routines shall execute variables which could be set by a programmer prior to executing the code.
+         </p>
+         <p class="mar01in01">
+            2.2.11.3&nbsp;&nbsp;&nbsp;&nbsp;No routine may use VIEW commands using variables as arguments which could be set by 
+            a programmer prior to executing the code. &nbsp;(Exemption:&nbsp; Kernel)
+         </p>
+         <p class="mar01in01">
+            2.2.12&nbsp;&nbsp;&nbsp;&nbsp;Z Routines
+         </p>
+         <p class="mar01in01">
+            2.2.12.1&nbsp;&nbsp;&nbsp;&nbsp;No application will export routines whose names start with the
+            letter &quot;Z&quot;.&nbsp; (Exemption: Kernel)
+         </p>
+         <p class="mar01in01">
+            2.2.13&nbsp;&nbsp;&nbsp;&nbsp;Routines may not be invoked using the extended reference syntax,
+            i.e., D ^|VAH|TAG^ROUTINE is illegal.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC006"><b>2.3&nbsp;&nbsp;Variables</b></a>
+         </p>
+         <p class="mar01in01">
+            2.3.1&nbsp;&nbsp;&nbsp;&nbsp;Local Variables
+         </p>
+         <p class="mar01in01">
+            2.3.1.1&nbsp;&nbsp;&nbsp;&nbsp;Local variable names may not exceed sixteen characters and may not contain lowercase characters.
+         </p>
+         <p class="mar01in01">
+            2.3.1.2&nbsp;&nbsp;&nbsp;&nbsp;The full evaluated length of a local variable name including
+            subscripts must not exceed 200 characters. The evaluated length is calculated as follows.
+         <ul>
+           <li>
+            Example subscripted variable:&nbsp;&nbsp;NAME(sub1,sub2,...,subn)<br>
+             (e.g. ($L(NAME)+3) + ($L(sub1) + $L(sub2) + ... +$L(subn) )&nbsp;
+            + (2 * number of subscripts)&nbsp; +15)<br>
+            VAR(&quot;XXX&quot;,123,1,2,0) would evaluate to a string
+            length of 42, (6+11+10+15)=42.
+           </li> 
+         </ul>
+         </p>
+         <p class="mar01in01">
+            2.3.1.3&nbsp;&nbsp;&nbsp;&nbsp;System-Wide Variables
+         </p>
+         <p class="mar01in01">
+            2.3.1.3.1&nbsp;&nbsp;&nbsp;&nbsp;The following are system-wide variables.&nbsp; Any application
+            setting system wide variables must conform to the following
+            definitions.
+         <ul>
+            <li>AGE - Patient age in years from date of birth to DT expressed as an integer, or, if deceased, the date of death.</li>
+            <br><li>DFN - Internal number of an entry in the PATIENT File (#2).</li>
+            <br><li>DOB - Patient date of birth expressed in internal VA FileMan format.</li>
+            <br><li>SEX - Patient sex; either &quot;F&quot; or &quot;M&quot;.</li>
+            <br><li>SSN - Social Security Number with 9 contiguous digits, or 9 digits and a &quot;P&quot;.</li>
+            <br><li>VA(&quot;BID&quot;) - Brief patient identifier up to 7 characters.</li>
+            <br><li>VA(&quot;PID&quot;) - Patient identifier; up to 15 characters.</li>
+         </ul>
+         </p>
+         <p class="mar01in01">
+            2.3.1.3.2&nbsp;&nbsp;&nbsp;&nbsp;The following variables, referenced elsewhere in this document, are
+            set by Kernel during sign-on, or by VA FileMan, and can be assumed to exist by all VistA applications.
+         <ul>
+            <li>DT - Current date, without time, in internal VA FileMan format.</li>
+            <br><li>DTIME - Time-out parameter for a read command in seconds.</li>
+            <br><li>DUZ array - Contains user-specific information.</li>
+            <br><li>DUZ(0) is this user&#39;s VA FileMan access code.</li>
+            <br><li>DUZ(2) is the internal entry of the institution file.</li>
+            <br><li>DUZ(&quot;AG&quot;) is the agency code (from the Kernel site param file).</li>
+            <br><li>DUZ(&ldquo;AUTO&rdquo;) is used by Menu Manager to control whether
+                      all items on a menu are presented automatically.</li>
+            <br><li>U - Caret (i.e., &quot;^&quot;).</li>
+            <br><li>IO - The hardware name of the last selected in/output device.</li>
+            <br><li>IO(0) - The assigned principal device (primary device).</li>
+            <br><li>ION - The logical name of the IO device.</li>
+            <br><li>IOST - The last selected input/output device&#39;s subtype from the Terminal Type file.</li>
+            <br><li>IOST(0) - The internal entry number in the Terminal Type file
+                      of&nbsp; the last selected IO device&#39;s terminal type.</li>
+            <br><li>IOM - The width of the IO device.</li>
+            <br><li>IOSL - The length of the IO device.</li>
+            <br><li>IOF - The code to start output at the top of a page (e.g., W @IOF).</li>
+            <br><li>IOBS - The backspace of the IO device.</li>
+         </ul>
+         </p>
+         <p class="mar01in01">
+            2.3.1.4&nbsp;&nbsp;&nbsp;&nbsp;VistA packages are not allowed to KILL, NEW, SET, MERGE, READ
+            (into) or otherwise modify the variable DUZ or any DUZ array
+            element.&nbsp; (Exemptions: Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.3.1.5&nbsp;&nbsp;&nbsp;&nbsp;The variables DT, DTIME, and U have no array elements and shall be
+            initially defined by Kernel or VA FileMan.
+         </p>
+         <p class="mar01in01">
+            2.3.1.5.1&nbsp;&nbsp;&nbsp;&nbsp;The variable U will not be KILLed or NEWed or changed from the
+            value defined by Kernel or VA FileMan.&nbsp; (It is legal to SET U=&quot;^&quot;.)
+         </p>
+         <p class="mar01in01">
+            2.3.1.5.2&nbsp;&nbsp;&nbsp;&nbsp;The variable DT will not be KILLed or NEWed.&nbsp; If changed it
+            must be set using the supported reference S DT=$$DT^XLFDT.
+         </p>
+         <p class="mar01in01">
+            2.3.1.5.3The variable DTIME may be changed, but must be restored to its
+            original value before exiting the option.
+         </p>
+         <p class="mar01in01">
+            2.3.1.5.3.1&nbsp;&nbsp;&nbsp;&nbsp;The Kernel supported reference $$DTIME^XUP will reset DTIME to its
+            original value, e.g., S DTIME=$$DTIME^XUP(DUZ).
+         </p>
+         <p class="mar01in01">
+            2.3.1.6&nbsp;&nbsp;&nbsp;&nbsp;VistA packages are not allowed to KILL, NEW, SET, MERGE, READ
+            (into) or otherwise modify variables beginning with &ldquo;IO&rdquo; and any of their array elements except those
+            documented as modifiable in the Kernel System Manual. (Exemptions: Kernel, Mailman, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.3.1.7&nbsp;&nbsp;&nbsp;&nbsp;VistA packages are not allowed to KILL, NEW, SET, MERGE, READ
+            (into) or otherwise modify variables beginning with &ldquo;%&rdquo;.&nbsp; Exceptions to this are the single character
+            variable &quot;%&quot; and the variables set for and/or returned by Kernel, and VA FileMan supported references.&nbsp;
+            (Exemptions:&nbsp; Kernel, VA FileMan and MailMan)
+         </p>
+         <p class="mar01in01">
+            2.3.1.8&nbsp;&nbsp;&nbsp;&nbsp;A VistA package may declare local variables in its namespace as
+            package-wide.&nbsp; A VistA package may not kill or change another
+            VistA package&#39;s package-wide variables.
+         </p>
+         <p class="mar01in01">
+            2.3.1.8.1&nbsp;&nbsp;&nbsp;&nbsp;The variables and all of their array elements must be described in
+            the package&#39;s technical manual.
+         </p>
+         <p class="mar01in01">
+            2.3.1.8.2&nbsp;&nbsp;&nbsp;&nbsp;Documentation on how to create and kill package-wide variables
+            created by an option that is removed from its exported menu path must be included in the technical manual.
+         </p>
+         <p class="mar01in01">
+            2.3.1.9&nbsp;&nbsp;&nbsp;&nbsp;All supported references must leave the lock tables and local
+            symbol tables unchanged upon exit with the exception of the following:
+            <ul>
+              <li>Documented input and output variables (including globals).</li>
+              <li>Documented side effects, such as lock table changes, and changes to files.</li>
+              <li>Variables within the namespace of the supported reference being called may be changed or killed during execution 
+                  of the supported reference. (For example, the VA FileMan ^DIC call kills the variable DIE (DIE is within the DI 
+                  namespace of the ^DIC supported reference), which may exist in the symbol table prior to the call.)</li>
+              <li>Variables composed of a single alpha character followed optionally by one numeric.</li>
+              <li>The variable %.</li>
+           </ul>
+           <DIV class="leftmargin01">These supported references must be documented in the package technical manual and on FORUM with a descriptive 
+            list of ALL input and resulting output variables.
+           </DIV>
+         </p>
+         <p class="mar01in01">
+            2.3.1.10&nbsp;&nbsp;&nbsp;&nbsp;Naming requirements for variables passed between packages.
+         </p>
+         <p class="mar01in01">
+            2.3.1.10.1&nbsp;&nbsp;&nbsp;&nbsp;Input variables in an Actual List passed by reference between
+            packages must be package namespaced.
+            <ul>
+              <li>Legal:&nbsp; D BLD^DIALOG(3500010,,.IBDATA,&quot;IBX&quot;),</li>
+              <li>Illegal:&nbsp; D BLD^DIALOG(3500010,,.Y,&quot;IBX&quot;)</li>
+            </ul>
+         <DIV class="leftmargin01">Variables containing values which will be updated must be namespaced.</DIV>
+         <ul>
+            <li>Legal:&nbsp; S DA=10,DR=&quot;.01;.104&quot;,DIC=&quot;^DPT(&quot;,DIQ=&quot;IBX&quot; D EN^DIQ1</li>
+            <li>Illegal:&nbsp; S DA=10,DR=&quot;.01;.104&quot;,DIC=&quot;^DPT(&quot;,DIQ=&quot;Y&quot; D EN^DIQ1</li>
+         </ul>
+         </p>
+         <p class="mar01in01">
+            2.3.2&nbsp;&nbsp;&nbsp;&nbsp;Global Variables
+         </p>
+         <p class="mar01in01">
+            2.3.2.1&nbsp;&nbsp;&nbsp;&nbsp;Lowercase characters in global names and global subscripts are
+            prohibited.&nbsp; (Exemption:&nbsp; Cross-references created using field values containing lowercase characters 
+            and subscripts used in the ^TMP and ^XTMP globals.)
+         </p>
+         <p class="mar01in01">
+            2.3.2.2&nbsp;&nbsp;&nbsp;&nbsp;The full evaluated length of a global reference must not exceed 200
+            characters.&nbsp; The evaluated length is calculated as follows.
+            <br>
+            Example subscripted variable:
+            <ul>
+            <li>^NAME(sub1,sub2,...,subn)<br>
+                (e.g&nbsp; ($L(NAME)+3) +($L(sub1) + $L(sub2) + ... +$L(subn))&nbsp; + (2 * number of subscripts ) +15)<br>
+                &nbsp; ^TMP(&quot;XXX&quot;,123,1,2,0) would evaluate to a string length of 42 (6+11+10+15)=42.</li>
+            </ul>
+         </p>
+         <p class="mar01in01">
+            2.3.2.3&nbsp;&nbsp;&nbsp;&nbsp;The KILLing of unsubscripted globals is prohibited and should be
+            protected.&nbsp; (Special instruction to the site will be required to enable the killing of a unsubscripted global. 
+            &nbsp; Application developers must document when calls to EN^DIU2 are made to delete files stored in unsubscripted globals).
+         </p>
+         <p class="mar01in01">
+            2.3.2.4&nbsp;&nbsp;&nbsp;&nbsp;READing, KILLing, SETting or MERGing ^% globals is prohibited. &nbsp;(Exemption: Kernel)
+         </p>
+         <p class="mar01in01">
+            2.3.2.5&nbsp;&nbsp;&nbsp;&nbsp;All globals must be VA FileMan compatible. &nbsp;^TMP, ^XTMP and
+            ^UTILITY have a standing exemption from this requirement.
+         </p>
+         <p class="mar01in01">
+            2.3.2.5.1&nbsp;&nbsp;&nbsp;&nbsp;The global ^TMP will be used as a scratch global within a session. &nbsp;The first 
+            subscript shall be $J, or the first two subscripts shall 
+            be a package namespaced subscript followed by $J. This global subscript should be killed before and after use.
+         </p>
+         <p class="mar01in01">
+            2.3.2.5.2&nbsp;&nbsp;&nbsp;&nbsp;The global ^XTMP will be translated, with one copy for the entire VistA production 
+            system at each site. &nbsp;The structure of each top node shall follow the format ^XTMP(namespaced-subscript,0)=purge 
+            date^create date^optional descriptive information, and both dates will be in VA FileMan internal date format.
+         </p>
+         <p class="mar01in01">
+            2.3.2.6&nbsp;&nbsp;&nbsp;&nbsp;Fields in VA FileMan files which contain executable code must be write protected in 
+            the DD with &quot;@&quot; (e.g., ^DD(file,field,9)=&quot;@&quot;), or be defined as VA FileMan data type of M language.
+         </p>
+         <p class="mar01in01">
+            2.3.2.7&nbsp;&nbsp;&nbsp;&nbsp;References to the DD Global require a formal Database Integration Agreement (DBIA) 
+            with the VA FileMan Development team and must be registered with the Database Administrator.
+         </p>
+         <p class="mar01in01">
+            2.3.2.8&nbsp;&nbsp;&nbsp;&nbsp;All global variables executed by % routines must be in write-protected globals.
+         </p>
+         <p class="mar01in01">
+            2.3.2.9&nbsp;&nbsp;&nbsp;&nbsp;Extended reference syntax may not be used to reference global variables, i.e., 
+            S X=^|VAH|GLOBAL(1,1) is illegal.
+         </p>
+         <p class="mar01in01">
+            2.3.3&nbsp;&nbsp;&nbsp;&nbsp;Intrinsic (system) Variables
+         </p>
+         <p class="mar01in01">
+            2.3.3.1&nbsp;&nbsp;&nbsp;&nbsp;The use of lowercase intrinsic variables is prohibited.
+         </p>
+         <p class="mar01in01">
+            2.3.3.2&nbsp;&nbsp;&nbsp;&nbsp;No VistA package may use the following intrinsic (system) variables unless they 
+            are accessed using Kernel or VA FileMan supported references: $D[EVICE], $I[O], $K[EY], $P[RINCIPAL], $ST[ACK],
+            $SY[STEM], $Z*. &nbsp;(Exemptions:&nbsp; Kernel, and VA FileMan)
+            <p class="leftmargin02">
+              2.3.3.2.1&nbsp;&nbsp;&nbsp;&nbsp;$D[EVICE] may check for a binary status, ie 0 or 1.
+              <br>
+              <br>
+              2.3.3.2.2&nbsp;&nbsp;&nbsp;&nbsp;$K[EY] May not rely on vendor specific values.
+            </p>
+         </p>   
+         <p class="mar01in01">
+            2.3.4&nbsp;&nbsp;&nbsp;&nbsp;Structured System Variables (SSVNs)
+         </p>
+         <p class="mar01in01">
+            2.3.4.1&nbsp;&nbsp;&nbsp;&nbsp;The following Structured System Variables may be used only by
+            Kernel, or VA FileMan or through their supported references:
+            ^$CHARACTER, ^$DEVICE, ^$DISPLAY, ^$EVENT, ^$GLOBAL, ^$JOB, ^$LOCK, ^$ROUTINE, ^$SYSTEM, ^$Z*, and ^$WINDOW.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC007"><b>2.4&nbsp;&nbsp;Commands</b></a>
+         </p>
+         <p class="mar01in01">
+            2.4.1&nbsp;&nbsp;&nbsp;&nbsp;BREAK Command
+         </p>
+         <p class="mar01in01">
+            2.4.1.1&nbsp;&nbsp;&nbsp;&nbsp;Direct use of the BREAK command is prohibited.&nbsp; Use
+            ^%ZOSF(&quot;BRK&quot;) and ^%ZOSF(&quot;NBRK&quot;).&nbsp;
+            (Exemptions:&nbsp; Kernel and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            <a name="Close">2.4.2&nbsp;&nbsp;&nbsp;&nbsp;CLOSE Command</a>
+         </p>
+         <p class="mar01in01">
+            2.4.2.1&nbsp;&nbsp;&nbsp;&nbsp;Direct use of the CLOSE command is prohibited.&nbsp; Use the
+            supported ^%ZIS* namespaced routines.&nbsp; (Exemptions: &nbsp;Kernel, Mailman and VA FileMan)
+         </p>
+         <p>
+            2.4.3&nbsp;&nbsp;&nbsp;&nbsp;HALT Command
+         </p>
+         <p>
+            2.4.3.1&nbsp;&nbsp;&nbsp;&nbsp;Direct use of the HALT command is prohibited.&nbsp; Use the
+            supported reference H^XUS. &nbsp;(Exemptions: Kernel, and VA
+            FileMan)
+         </p>
+         <p class="mar01in01">
+            2.4.4&nbsp;&nbsp;&nbsp;&nbsp;JOB Command
+         </p>
+         <p class="mar01in01">
+            2.4.4.1&nbsp;&nbsp;&nbsp;&nbsp;Direct use of the JOB command is prohibited.&nbsp; Use the Kernel
+            Task Manager&#39;s supported calls to create jobs. &nbsp;(Exemptions: Kernel, and MailMan)
+         </p>
+         <p class="mar01in01">
+            2.4.5&nbsp;&nbsp;&nbsp;&nbsp;KILL Command
+         </p>
+         <p class="mar01in01">
+            2.4.5.1&nbsp;&nbsp;&nbsp;&nbsp;The argumentless form of the KILL command is prohibited. &nbsp;(Exemption: Kernel)
+         </p>
+         <p class="mar01in01">
+            2.4.5.2&nbsp;&nbsp;&nbsp;&nbsp;The exclusive form of the KILL command is prohibited. &nbsp;(Exemptions: Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.4.6&nbsp;&nbsp;&nbsp;&nbsp;LOCK Command
+         </p>
+         <p class="mar01in01">
+            2.4.6.1&nbsp;&nbsp;&nbsp;&nbsp;All LOCKs shall be of the incremental form. (Exemption: Kernel)
+            <ul>
+               <li>All incremental LOCKS must have a timeout, the timeout must not be
+               less than the value of the Kernel variable &ldquo;DILOCKTM&rdquo;.</li>
+            </ul>
+         </p>
+         <p class="mar01in01">
+            2.4.7&nbsp;&nbsp;&nbsp;&nbsp;NEW Command
+         </p>
+         <p class="mar01in01">
+            2.4.7.1&nbsp;&nbsp;&nbsp;&nbsp;The argumentless form of the NEW command is prohibited.
+         </p>
+         <p class="mar01in01">
+            2.4.7.2&nbsp;&nbsp;&nbsp;&nbsp;The exclusive form of the NEW command is prohibited.
+         </p>
+         <p class="mar01in01">
+            <a name="Open">2.4.8&nbsp;&nbsp;&nbsp;&nbsp;OPEN Command</a>
+         </p>
+         <p class="mar01in01">
+            2.4.8.1&nbsp;&nbsp;&nbsp;&nbsp;The use of the OPEN command is prohibited. &nbsp;(Exemptions: &nbsp;Kernel, Mailman and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.4.9&nbsp;&nbsp;&nbsp;&nbsp;READ Command
+         </p>
+         <p class="mar01in01">
+            2.4.9.1&nbsp;&nbsp;&nbsp;&nbsp;All READ commands shall read into local variables, ^TMP or ^XTMP.
+         </p>
+         <p class="mar01in01">
+            2.4.9.2&nbsp;&nbsp;&nbsp;&nbsp;All user input READs must have a timeout.&nbsp; If the duration of the timeout is not specified 
+            by the variable DTIME and the duration exceeds 300 seconds, documentation in the package technical manual is required.
+         </p>
+         <p class="mar01in01">
+            2.4.9.3&nbsp;&nbsp;&nbsp;&nbsp;All user input READ commands shall be terminated by a carriage return.&nbsp; (Exemptions: 
+            Kernel, and VA FileMan)&nbsp; (Developers desiring to implement escape processing [function keys,
+            arrow keys, etc.] must use Kernel supplied supported references [XGF].)
+         </p>
+         <p class="mar01in01">
+            2.4.10&nbsp;&nbsp;&nbsp;&nbsp;Transaction Processing Commands
+         </p>
+         <p class="mar01in01">
+            2.4.10.1&nbsp;&nbsp;&nbsp;&nbsp;VistA packages may use transaction-processing commands as long as
+            the operations have no irreversible side effects.
+         </p>
+         <p class="mar01in01">
+            2.4.11&nbsp;&nbsp;&nbsp;&nbsp;USE Command
+         </p>
+         <p class="mar01in01">
+            2.4.11.1&nbsp;&nbsp;&nbsp;&nbsp;The use of the USE command with parameters is prohibited.
+            (Exemptions: Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.4.12&nbsp;&nbsp;&nbsp;&nbsp;VIEW Command
+         </p>
+         <p>
+            2.4.12.1&nbsp;&nbsp;&nbsp;&nbsp;The use of the VIEW command is prohibited.&nbsp; (Exemptions: &nbsp;Kernel, and VA FileMan)
+         </p>
+         <p>
+            2.4.13&nbsp;&nbsp;&nbsp;&nbsp;MWAPI Commands
+         </p>
+         <p class="mar01in01">
+            2.4.13.1&nbsp;&nbsp;&nbsp;&nbsp;No VistA package may use the MWAPI commands:&nbsp; ESTART, ESTOP,
+            ETRIGGER. &nbsp;(Exemption: Kernel)
+         </p>
+         <p class="mar01in01">
+            2.4.14&nbsp;&nbsp;&nbsp;&nbsp;Commands
+         </p>
+         <p class="mar01in01">
+            2.4.14.1&nbsp;&nbsp;&nbsp;&nbsp;The use of Z* commands is prohibited.&nbsp; (Exemptions: Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC008">2.5&nbsp;&nbsp;<b>Functions</b></a>
+         </p>
+         <p class="mar01in01">
+            2.5.1&nbsp;&nbsp;&nbsp;&nbsp;Intrinsic Functions
+         </p>
+         <p class="mar01in01">
+            2.5.1.1&nbsp;&nbsp;&nbsp;&nbsp;Use of the $NEXT function is prohibited.
+         </p>
+         <p class="mar01in01">
+            2.5.1.2&nbsp;&nbsp;&nbsp;&nbsp;The use of the $VIEW function is prohibited.&nbsp; (Exemptions:
+            Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.5.1.3&nbsp;&nbsp;&nbsp;&nbsp;The use of $Z* functions are prohibited. (Exemptions: Kernel, and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.5.2&nbsp;&nbsp;&nbsp;&nbsp;Extrinsic Functions
+         </p>
+         <p class="mar01in01">
+            2.5.2.1&nbsp;&nbsp;&nbsp;&nbsp;Supported references that use parameters will document the elements of the formal list 
+            internally within the routine and in the package technical or programmer manual.&nbsp; Documentation will specify
+            which elements of the formal list are required and which are optional, if any, and those elements which must be passed by
+            reference.
+         </p>
+         <p class="mar01in01">
+            2.5.2.2&nbsp;&nbsp;&nbsp;&nbsp;Supported extrinsic special variables - extrinsic functions with an empty formal 
+            list - will be documented within the routine and in the technical or programmer manual.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC009"><b>2.6&nbsp;&nbsp;Name Requirements</b></a>
+         </p>
+         <p class="mar01in01">
+            2.6.1&nbsp;&nbsp;&nbsp;&nbsp;Unless otherwise approved by the IAC, routine, global, security key, option, template, 
+            bulletin, function, screen, help frame, protocol, form, block, list templates, objects, dialogues, remote procedures, and 
+            Kernel parameters, etc,. names must be consistent with the assigned namespace.
+         </p>
+         <p class="mar01in01">
+            2.6.2&nbsp;&nbsp;&nbsp;&nbsp;The following do not have to be namespaced: Mail Groups, File Names, Menu Text,
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC010"><b>2.7&nbsp;&nbsp;Options (Option file entries)</b></a>
+         </p>
+         <p class="mar01in01">
+            2.7.1&nbsp;&nbsp;&nbsp;&nbsp;Option selection must be made through Menu Manager.&nbsp; Hardcoded
+            menu management systems are not allowed.
+         </p>
+         <p class="mar01in01">
+            2.7.2&nbsp;&nbsp;&nbsp;&nbsp;All options in a package must be path independent once the steps
+            described in the technical manual for creating and killing
+            package-wide variables have been taken.
+         </p>
+         <p class="mar01in01">
+            2.7.3&nbsp;&nbsp;&nbsp;&nbsp;The following must not exist after exiting an option:
+            <ul>
+              <li>Any documented output variables created by a called supported reference.</li>
+              <li>Any documented locks created by a called supported reference.</li>
+              <li>Any documented temporary scratch global nodes (e.g., ^TMP and ^UTILITY) created by a called supported reference, with the
+                  exception of ^XTMP global data.</li>
+              <li>Any local variables, locks, and scratch global nodes&nbsp; (except ^XTMP, or other scratch globals designed to be passed 
+                  between parts of a package) created by the application.</li>
+            </ul>
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC011"><b>2.8&nbsp;&nbsp;Device Handling</b></a>
+         </p>
+         <p class="mar01in01">
+            2.8.1&nbsp;&nbsp;&nbsp;&nbsp;All device manipulation will be made through the use of the Kernel supported references. 
+            &nbsp; See Sections <a href="#Close">2.4.2</a> and <a href="#Open">2.4.8</a> for specific information about the <a
+            href="#Close">Close</a> and <a href="#Open">Open</a> commands.&nbsp; (Exemptions:&nbsp; Kernel and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.8.2&nbsp;&nbsp;&nbsp;&nbsp;Any output to a hard copy device (e.g., printer) must allow for
+            queuing.
+         </p>
+         <p class="mar01in01">
+            2.8.2&nbsp;&nbsp;&nbsp;&nbsp;Output directed to a hard copy device (e.g., printer) will not start with a form feed or 
+            line feeds with the purpose of creating a form feed, and will leave the device at top-of-form when the output is finished.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC012"><b>2.9&nbsp;&nbsp;Miscellaneous</b></a>
+         </p>
+
+         <p class="mar01in01">
+            2.9.1&nbsp;&nbsp;&nbsp;&nbsp;Application software must use documented Kernel supported references to perform all platform 
+            specific functions. &nbsp;(Exemptions:&nbsp; Kernel and VA FileMan)
+         </p>
+         <p class="mar01in01">
+            2.9.2&nbsp;&nbsp;&nbsp;&nbsp;No data element which may be interpreted as a number may contain
+            more than 15 significant digits.
+         </p>
+         <p class="mar01in01">
+            2.9.3&nbsp;&nbsp;&nbsp;&nbsp;Packages may phase out supported references (as callable from outside the application and 
+            documented by IAC) by providing a minimum 18-month notice to the PROGRAMMER, CHIEF PROJECT MANAGER,
+            and SITEMANAGERS NATIONAL mail groups on FORUM.
+         </p>
+         <p class="mar01in01">
+            2.9.4&nbsp;&nbsp;&nbsp;&nbsp;Globals and routines will use only the M character set profile.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC013"><b>2.10&nbsp;&nbsp;Conventions</b></a>
+         </p>
+         <p class="mar01in01">
+            2.10.1&nbsp;&nbsp;&nbsp;&nbsp;Only Kernel and VA FileMan and existing Supported References may use ^UTILITY.
+         </p>
+         <p class="mar01in01">
+            2.10.2&nbsp;&nbsp;&nbsp;&nbsp;Tasks should be deleted from Task Manager&#39;s list by SETting the
+            variable ZTREQ equal to &quot;@&quot; just prior to the application QUITing.
+         </p>
+         <p class="mar01in01">
+            2.10.3&nbsp;&nbsp;&nbsp;&nbsp;VA FileMan conventions should be used for editing data and for
+            formatting date and time (see the VA FileMan Users Guide).
+         </p>
+         <p class="mar01in01">
+            2.10.4&nbsp;&nbsp;&nbsp;&nbsp;Routine documentation
+         </p>
+         <p class="mar01in01">
+            2.10.4.1&nbsp;&nbsp;&nbsp;&nbsp;Routine line tags referenced from outside the routine should
+            include a comment describing the code&rsquo;s function after theline tag.
+         </p>
+         <p class="mar01in01">
+            2.10.4.2&nbsp;&nbsp;&nbsp;&nbsp;Any supported references or routines invoked initially from an
+            option or protocol should contain comments explaining the functionality and all input and output variables.
+         </p>
+         <p class="mar01in01">
+            2.10.5&nbsp;&nbsp;&nbsp;&nbsp;The Data Dictionary may only be edited with FileMan.
+         </p>
+         <p class="mar01in01">
+            2.10.6&nbsp;&nbsp;&nbsp;&nbsp;READ commands should not be used in the data dictionary.
+         </p>
+         <p class="mar01in01">
+            2.10.7&nbsp;&nbsp;&nbsp;&nbsp;WRITE commands should not be used in data dictionaries (except for
+            VA FileMan generated ID nodes).&nbsp; The call EN^DDIOL should be used instead.
+         </p>
+         <p class="mar01in01">
+            2.10.8&nbsp;&nbsp;&nbsp;&nbsp;The proper method of determining if a device is a CRT is to check
+            that the variable IOST starts with the string &quot;C-&quot;. &nbsp;(e.g., I $E(IOST,1,2)=&quot;C-&quot;)
+         </p>
+         <p class="mar01in01">
+            2.10.9&nbsp;&nbsp;&nbsp;&nbsp;Descriptive information should be included on the third piece of the 0 node 
+            of the XTMP global, such as task description and creator DUZ.
+         </p>
+         <p class="mar01in01">
+            2.10.10&nbsp;&nbsp;&nbsp;&nbsp;The line body of a routine must contain at least 1 character. &nbsp;Generally 
+            a single semicolon is used to demarcate a blank line.
+         </p>
+         <p class="mar01in01">
+            2.10.11&nbsp;&nbsp;&nbsp;&nbsp;Error trapping - To use the new error trapping in a routine, NEW $ESTACK,$ETRAP 
+            S $ETRAP=&quot;D tag^routine&quot;
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC014"><b>3.&nbsp;&nbsp;Interface Programming Standards and Conventions</b></a>
+            <br>
+            <br>
+            It is the intention of this section of the Standards and Conventions to provide a consistent path for users as applications
+            migrate from scrolling mode to a screen mode (either ScreenMan, List Manager, or screen oriented editors) to a GUI environment.
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC015"><b>3.1&nbsp;&nbsp;User Interface Standards for Scroll Mode and Screen Mode</b></a>.
+         </p>
+         <p class="mar01in01">
+            3.1.1&nbsp;&nbsp;&nbsp;&nbsp;Deletion of a data value, if permissible, must be initiated by the
+            user entering the at-sign &quot;@&quot;.
+         </p>
+         <p class="mar01in01">
+            3.1.2&nbsp;&nbsp;&nbsp;&nbsp;All user-input READs which are in any way evaluated by the
+            application must be escapable by entering a caret &quot;^&quot;, which takes an action other than a reread.
+         </p>
+         <p class="mar01in01">
+            3.1.3&nbsp;&nbsp;&nbsp;&nbsp;All prompts requesting user input must provide additional help when
+            the user enters a question mark (&quot;?&quot;).&nbsp; Any unrecognized or inappropriate response must be handled properly;
+            i.e., at a minimum in a manner similar to the way VA FileMan handles responses. Refer to the VA FileMan User&#39;s Manual for
+            more information. Responses to READs that are in no way evaluated by the application are excluded from this requirement.
+         </p>
+         <p class="mar01in01">
+            3.1.4&nbsp;&nbsp;&nbsp;&nbsp;In scrolling mode, defaults must be so indicated with a double
+            slash (&quot;//&quot;) or &quot;replace&quot; indicating that &quot;replace/with&quot; editing is allowed.&nbsp; The null
+            response (i.e., typing only the RETURN key) shall select the default.
+         </p>
+         <p class="mar01in01">
+            3.1.5&nbsp;&nbsp;&nbsp;&nbsp;The program must return to the Menu Manager with no more than one
+            intervening read when a user input READ command times out if the argument of the read is in any way evaluated by the
+            application.&nbsp; A timeout at the menu level must halt through H^XUS
+         </p>
+         <p class="mar01in01">
+            <a name="_TOC016"><b>3.2&nbsp;&nbsp;User Interface Conventions for Scroll Mode and Screen Mode</b></a>.
+         </p>
+         <p class="mar01in01">
+            3.2.1&nbsp;&nbsp;&nbsp;&nbsp;Developers are encouraged to use the following terminology.
+         </p>
+         <p class="mar01in01">
+            3.2.1.1&nbsp;&nbsp;&nbsp;&nbsp;<a name="Exit">Exit</a> - Exit ends a function or application and removes from the 
+            screen all windows and pop-ups associated with that function or application. If information has been changed, the 
+            application may automatically save the information, or prompt the user to save or discard the information.
+         </p>
+         <p class="mar01in01">
+            3.2.1.2&nbsp;&nbsp;&nbsp;&nbsp;Quit - Like Exit, Quit ends a function or application and removes from the screen all 
+            windows and pop-ups associated with that function or application.&nbsp; If information has been changed, the
+            application may automatically discard the information, or prompt the user to save or discard the information.
+         </p>
+         <p class="mar01in01">
+            3.2.1.3&nbsp;&nbsp;&nbsp;&nbsp;<a name="Cancel">Close (or Cancel)</a> allows users to back out of a function 
+            or application, one pop-up at a time, until they reach the highest level window. At that point, another Close 
+            request has the same effect as an Exit action.
+            <br>
+            <br>
+            When users Close a pop-up, the application can decide whether to discard or retain the information in that pop-up, 
+            depending on how the application wants to establish the default values the next time the pop-up is displayed. 
+            &nbsp;If the information is discarded and the pop-up is later redisplayed, the pop-up contains the default
+            values set by the application.&nbsp; If the information is retained and the pop-up is later re-displayed, the pop-up 
+            contains the same values as it did when the user Closed the pop-up.
+         </p>
+         <p class="mar01in01">
+            3.2.2&nbsp;&nbsp;&nbsp;&nbsp;Developers are encouraged to use the following key assignments:
+         </p>
+         <p class="mar01in01">
+            3.2.2.1&nbsp;&nbsp;&nbsp;&nbsp;PF1 key (or the equivalent key that produces the &lt;ESC&gt;OP
+            sequence) - May result in different actions based on the next key selected.
+         </p>
+         <p class="mar01in01">
+            3.2.2.2&nbsp;&nbsp;&nbsp;&nbsp;PF2 key (or the equivalent key that produces the &lt;ESC&gt;OQ
+            sequence) - Context-Sensitive Help.&nbsp; Provides context sensitive help about a specific item, field, or window.
+         </p>
+         <p class="mar01in01">
+            3.2.2.3&nbsp;&nbsp;&nbsp;&nbsp;PF3 key (or the equivalent key that produces the &lt;ESC&gt;OR
+            sequence) - Exit.&nbsp; Exit is defined in <a href="#Exit">3.2.1.1</a> above.
+         </p>
+         <p class="mar01in01">
+            3.2.2.4&nbsp;&nbsp;&nbsp;&nbsp;PF4 key (or the equivalent key that produces the &lt;ESC&gt;OS
+            sequence) - Backtab.&nbsp; Moves the cursor to the previous entry field. The cursor moves from right to left, bottom to top.
+         </p>
+         <p class="mar01in01">
+            3.2.2.5&nbsp;&nbsp;&nbsp;&nbsp;F10 key - Menu Bar.&nbsp; Moves the cursor to the menu bar, if one
+            is available, at the top of the window or pop-up currently in focus.
+         </p>
+         <p>
+            3.2.2.6&nbsp;&nbsp;&nbsp;&nbsp;F12 key - Cancel.&nbsp; Cancel is defined in <a href="#Cancel">3.2.1.3</a> above.
+         </p>
+         <p class="mar01in01">
+            3.2.2.7&nbsp;&nbsp;&nbsp;&nbsp;Tab key - Tab.&nbsp; Moves the cursor to the next entry
+            field.&nbsp; The cursor moves from left-to-right, top-to-bottom.
+         </p>
+         <p class="mar01in01">
+            3.2.2.8&nbsp;&nbsp;&nbsp;&nbsp;PF1,H key sequence - Application Help.&nbsp; Provides information
+            about the particular segment of the application being used.
+         </p>
+         <p class="mar01in01">
+            3.2.3&nbsp;&nbsp;&nbsp;&nbsp;If a user is waiting for a lock which times out, then appropriate
+            notification should be given to the user.
+         </p>
+         <!--div style="text-align: right"> [Top of Page]</div-->
+         <p class="mar01in01">
+            <a name="_TOC017"><b>3.3&nbsp;&nbsp;&nbsp;&nbsp;User Interface Conventions for GUI Mode</b></a>.
+         </p>
+         <p class="mar01in01">
+            3.3.1&nbsp;&nbsp;&nbsp;&nbsp;User Interface Conventions for GUI Mode are detailed in a separate document.
+         </p>
+      </div>
+      
+      <p align="center"><img src="../images/lineNail4.gif" width="396" height="16"></p>
+
+      <p align="center"><font size="2">Search | </font><a href="/index.html"><font size="2">Home</font></a><font size="2">
+|     </font><a href="../m/Mmain.html"><font size="2">MUMPS</font></a><font size="2"> | </font><a href="../fileman/FMmain.html">
+      <font size="2">Fileman</font></a><font size="2"> | </font><a href="../kernel/KRNmain.html"><font size="2">Kernel</font></a>
+      <font size="2"> | </font><a href="../cs/CSmain.html"><font size="2">C/S, Mailman, Web</font></a><font size="2"> | </font>
+      <a href="TOOLSmain.html"><font size="2">Programmer Tools</font></a><font size="2"> | </font><a href="../apps/APPSmain.html">
+      <font size="2">Applications</font></a></p>
+      
+   </body>
+</html>
+
